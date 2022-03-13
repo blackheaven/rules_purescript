@@ -224,7 +224,7 @@ _default_purs_pkg_url_darwin = \
 _default_purs_pkg_sha256_linux = \
     "7a01ccef0cb7f83e5e807937e5680b20c64747939d3ab5d8489f02573b9001ad"
 _default_purs_pkg_sha256_macos = \
-    "886c2495ece5406d97f8f167809ecaca335bb30a7b22c2405e9509f6c88d4a14"
+    "2ca3e859b6f44760dfc39aed2c8ffe65da9396d436b34c808f4f1e58763f805d"
 _default_purs_pkg_strip_prefix = \
     "purescript"
 
