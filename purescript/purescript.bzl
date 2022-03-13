@@ -218,13 +218,13 @@ purescript_test = rule(
 
 
 _default_purs_pkg_url_linux = \
-    "https://github.com/purescript/purescript/releases/download/v0.12.0/linux64.tar.gz"
+    "https://github.com/purescript/purescript/releases/download/v0.14.7/linux64.tar.gz"
 _default_purs_pkg_url_darwin = \
-    "https://github.com/purescript/purescript/releases/download/v0.12.0/macos.tar.gz"
+    "https://github.com/purescript/purescript/releases/download/v0.14.7/macos.tar.gz"
 _default_purs_pkg_sha256_linux = \
-    "ccd777d9350c2e238d5be26419d3f54e2a335940b82c0baed040698c7cb1c7f1"
+    "7a01ccef0cb7f83e5e807937e5680b20c64747939d3ab5d8489f02573b9001ad"
 _default_purs_pkg_sha256_macos = \
-    "cbc9f28ba9c70d94da8c92845bbc32ceb6032f88babff3b74e25508a1690d33a"
+    "886c2495ece5406d97f8f167809ecaca335bb30a7b22c2405e9509f6c88d4a14"
 _default_purs_pkg_strip_prefix = \
     "purescript"
 
