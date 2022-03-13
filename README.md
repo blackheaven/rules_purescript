@@ -8,12 +8,12 @@ this put the following into your `WORKSPACE` file:
 
 ```python
 # refer to a githash in this repo:
-rules_purescript_version = "38abb155c30502c9996925640b9b8e04bd48d974"
+rules_purescript_version = "3767546058a856684ed68f45eafd387ca0d0896e"
 
 # download the archive:
 http_archive(
     name = "io_bazel_rules_purescript",
-    url  = "https://github.com/felixmulder/rules_purescript/archive/%s.zip" % rules_purescript_version,
+    url  = "https://github.com/bleackheaven/rules_purescript/archive/%s.zip" % rules_purescript_version,
     type = "zip",
     strip_prefix = "rules_purescript-%s" % rules_purescript_version,
 )
@@ -27,23 +27,23 @@ purescript_toolchain()
 # add some dependencies:
 purescript_dep(
     name = "purescript_console",
-    url = "https://github.com/purescript/purescript-console/archive/v4.1.0.tar.gz",
-    sha256 = "5b0d2089e14a3611caf9d397e9dd825fc5c8f39b049d19448c9dbbe7a1b595bf",
-    strip_prefix = "purescript-console-4.1.0",
+    url = "https://github.com/purescript/purescript-console/archive/v5.0.0.tar.gz",
+    sha256 = "821f35010385f68d731b250d205f1389ca9acfc36bfa9cfbd83394136c1a76b0",
+    strip_prefix = "purescript-console-5.0.0",
 )
 
 purescript_dep(
     name = "purescript_effect",
-    url = "https://github.com/purescript/purescript-effect/archive/v2.0.0.tar.gz",
-    sha256 = "5254c048102a6f4360a77096c6162722c4c4b2449983f26058d75d4e5be9d301",
-    strip_prefix = "purescript-effect-2.0.0",
+    url = "https://github.com/purescript/purescript-effect/archive/v3.0.0.tar.gz",
+    sha256 = "51383e9356968197a5f29a5ac545e8261c1a64016167a85b7aca29760b694882",
+    strip_prefix = "purescript-effect-3.0.0",
 )
 
 purescript_dep(
     name = "purescript_prelude",
-    url = "https://github.com/purescript/purescript-prelude/archive/v4.0.1.tar.gz",
-    sha256 = "3b69b111875eb2b915fd7bdf320707ed3d22194d71cd51d25695d22ab06ae6ee",
-    strip_prefix = "purescript-prelude-4.0.1",
+    url = "https://github.com/purescript/purescript-prelude/archive/v5.0.1.tar.gz",
+    sha256 = "438839a7e679a996f3e6c59b5280066893bf2bdb592ccd581b084f413a6310dd",
+    strip_prefix = "purescript-prelude-5.0.1",
 )
 ```
 
