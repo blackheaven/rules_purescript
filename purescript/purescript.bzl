@@ -222,24 +222,24 @@ _default_purs_pkg_url_linux = \
 _default_purs_pkg_url_darwin = \
     "https://github.com/purescript/purescript/releases/download/v0.14.7/macos.tar.gz"
 _default_purs_pkg_sha256_linux = \
-    "7a01ccef0cb7f83e5e807937e5680b20c64747939d3ab5d8489f02573b9001ad"
+    "cae16a0017c63fd83e029ca5a01cb9fc02cacdbd805b1d2b248f9bb3c3ea926d"
 _default_purs_pkg_sha256_macos = \
     "2ca3e859b6f44760dfc39aed2c8ffe65da9396d436b34c808f4f1e58763f805d"
 _default_purs_pkg_strip_prefix = \
     "purescript"
 
 def purescript_toolchain(url="default", sha256=_default_purs_pkg_sha256_linux, strip_prefix=_default_purs_pkg_strip_prefix):
-    is_darwin = select({
-        "@bazel_tools//src/conditions:darwin": True,
-        "//conditions:default": False,
-    })
+    if url == "default":
+        is_darwin = select({
+            "@bazel_tools//src/conditions:darwin": True,
+            "//conditions:default": False,
+        })
 
-    if is_darwin and url == "default":
-        url = _default_purs_pkg_url_darwin
-        sha256 = _default_purs_pkg_sha256_macos
-    elif url == "default":
-        url = _default_purs_pkg_url_linux
-
+        if is_darwin:
+            url = _default_purs_pkg_url_darwin
+            sha256 = _default_purs_pkg_sha256_macos
+        else:
+            url = _default_purs_pkg_url_linux
 
     http_archive(
         name = "purs",
