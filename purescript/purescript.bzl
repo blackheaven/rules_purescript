@@ -216,38 +216,45 @@ purescript_test = rule(
     test = True,
 )
 
+_PURS_DISTROS = {
+    "linux_amd64": struct(
+        url    = "https://github.com/purescript/purescript/releases/download/v0.14.7/linux64.tar.gz",
+        sha256 = "cae16a0017c63fd83e029ca5a01cb9fc02cacdbd805b1d2b248f9bb3c3ea926d",
+    ),
+    "macos_amd64": struct(
+        url    = "https://github.com/purescript/purescript/releases/download/v0.14.7/macos.tar.gz",
+        sha256 = "2ca3e859b6f44760dfc39aed2c8ffe65da9396d436b34c808f4f1e58763f805d",
+    ),
+}
+def _get_platform(repository_ctx):
+    os_name = repository_ctx.os.name.lower()
+    if os_name.startswith("linux"):
+        return "linux_amd64"
+    elif os_name.startswith("mac os"):
+        return "macos_amd64"
+    else:
+        fail("Unknown OS: '{}'".format(os_name))
 
-_default_purs_pkg_url_linux = \
-    "https://github.com/purescript/purescript/releases/download/v0.14.7/linux64.tar.gz"
-_default_purs_pkg_url_darwin = \
-    "https://github.com/purescript/purescript/releases/download/v0.14.7/macos.tar.gz"
-_default_purs_pkg_sha256_linux = \
-    "cae16a0017c63fd83e029ca5a01cb9fc02cacdbd805b1d2b248f9bb3c3ea926d"
-_default_purs_pkg_sha256_macos = \
-    "2ca3e859b6f44760dfc39aed2c8ffe65da9396d436b34c808f4f1e58763f805d"
-_default_purs_pkg_strip_prefix = \
-    "purescript"
-
-def purescript_toolchain(url="default", sha256=_default_purs_pkg_sha256_linux, strip_prefix=_default_purs_pkg_strip_prefix):
-    if url == "default":
-        is_darwin = select({
-            "@bazel_tools//src/conditions:darwin": True,
-            "//conditions:default": False,
-        })
-
-        if is_darwin:
-            url = _default_purs_pkg_url_darwin
-            sha256 = _default_purs_pkg_sha256_macos
-        else:
-            url = _default_purs_pkg_url_linux
-
-    http_archive(
-        name = "purs",
-        urls = [url],
-        sha256 = sha256,
-        strip_prefix = strip_prefix,
-        build_file_content = """exports_files(["purs"])""",
+def _purescript_toolchain_impl(repository_ctx):
+    distro = _PURS_DISTROS[_get_platform(repository_ctx)]
+    repository_ctx.download_and_extract(
+        url = distro.url,
+        sha256 = distro.sha256,
+        stripPrefix = "purescript",
     )
+    repository_ctx.file(
+        "BUILD.bazel",
+        content = """exports_files(["purs"])""",
+    )
+
+_purescript_toolchain = repository_rule(
+    _purescript_toolchain_impl,
+    configure = True,
+    environ = ["PATH"],
+)
+
+def purescript_toolchain():
+    _purescript_toolchain(name = "purs")
 
 _purescript_dep_build_content = """
 filegroup(
